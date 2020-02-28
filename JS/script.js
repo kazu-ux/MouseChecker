@@ -15,7 +15,7 @@ return (date)
 }
 
 //リスト
-let mouse = ["左ボタン", "中ボタン", "右ボタン", "ボタン4 ", "ボタン5 ", "ホイール", "ダブルクリック"]
+let mouse = ["左ボタン", "中ボタン", "右ボタン", "ボタン4 ", "ボタン5 ", "ホイール", "ダブルクリック","左チルト","右チルト"]
 let up_down = ["アップ", "ダウン"]
 let tag = ["<tr><td class='log'>", "</td></tr>"]
 
@@ -32,12 +32,13 @@ $("tbody").append(tag[0] + time() + " " + mouse[event.which - 1] + up_down[1] + 
 Delete();
 return false
 })
-
+/*
 //ダブルクリック判定
 document.addEventListener("dblclick", (e)=>{
     $("tbody").append(tag[0] + time() + " " + mouse[6] + tag[1]);
     Delete();
 })
+*/
 
 //右クリックメニューの無効
 $("html").on('contextmenu', function() {
@@ -46,13 +47,26 @@ $("html").on('contextmenu', function() {
 
 //ホイール検知
 document.addEventListener("wheel", (e)=>{
-    if (e.deltaY > 0 || e.deltaX > 0){
+    if (e.deltaY > 0){
         // マウスホイールを下にスクロールしたときの処理を記載
         $("tbody").append(tag[0] + time() + " " + mouse[5] + up_down[1] + tag[1])
         Delete();
-    } else if (e.deltaY < 0 || e.deltaX < 0){
+    } else if (e.deltaY){
         // マウスホイールを上にスクロールしたときの処理を記載
         $("tbody").append(tag[0] + time() + " " + mouse[5] + up_down[0] + tag[1])
+        Delete();
+    }
+})
+
+//左右チルトスイッチ判定
+document.addEventListener("wheel", (e)=>{
+    if (e.deltaX > 0){
+        // マウスホイールを下にスクロールしたときの処理を記載
+        $("tbody").append(tag[0] + time() + " " + mouse[8] + up_down[1] + tag[1])
+        Delete();
+    } else if (e.deltaX < 0){
+        // マウスホイールを上にスクロールしたときの処理を記載
+        $("tbody").append(tag[0] + time() + " " + mouse[7] + up_down[1] + tag[1])
         Delete();
     }
 })
