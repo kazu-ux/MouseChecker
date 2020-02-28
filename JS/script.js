@@ -46,11 +46,11 @@ $("html").on('contextmenu', function() {
 
 //ホイール検知
 document.addEventListener("wheel", (e)=>{
-    if (e.deltaY == 100 || e.deltaX == 100){
+    if (e.deltaY > 0 || e.deltaX > 0){
         // マウスホイールを下にスクロールしたときの処理を記載
         $("tbody").append(tag[0] + time() + " " + mouse[5] + up_down[1] + tag[1])
         Delete();
-    } else if (e.deltaY == -100 || e.deltaX == -100){
+    } else if (e.deltaY < 0 || e.deltaX < 0){
         // マウスホイールを上にスクロールしたときの処理を記載
         $("tbody").append(tag[0] + time() + " " + mouse[5] + up_down[0] + tag[1])
         Delete();
