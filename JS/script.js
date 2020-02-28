@@ -15,7 +15,7 @@ return (date)
 }
 
 //リスト
-let mouse = ["左ボタン", "中ボタン", "右ボタン", "ボタン4 ", "ボタン5 ", "ホイール"]
+let mouse = ["左ボタン", "中ボタン", "右ボタン", "ボタン4 ", "ボタン5 ", "ホイール", "ダブルクリック"]
 let up_down = ["アップ", "ダウン"]
 let tag = ["<tr><td class='log'>", "</td></tr>"]
 
@@ -33,24 +33,26 @@ Delete();
 return false
 })
 
+//ダブルクリック判定
+document.addEventListener("dblclick", (e)=>{
+    $("tbody").append(tag[0] + time() + " " + mouse[6] + tag[1]);
+    Delete();
+})
+
 //右クリックメニューの無効
 $("html").on('contextmenu', function() {
     return false
 })
 
 //ホイール検知
-
-var mousewheelevent = 'onwheel' in document ? 'wheel' : 'onmousewheel' in document ? 'mousewheel' : 'DOMMouseScroll';
-$(document).on(mousewheelevent,function(e){
-    e.preventDefault();
-    var delta = e.originalEvent.deltaY ? -(e.originalEvent.deltaY) : e.originalEvent.wheelDelta ? e.originalEvent.wheelDelta : -(e.originalEvent.detail);
-    if (delta < 0){
+document.addEventListener("wheel", (e)=>{
+    if (e.deltaY == 100 || e.deltaX == 100){
         // マウスホイールを下にスクロールしたときの処理を記載
         $("tbody").append(tag[0] + time() + " " + mouse[5] + up_down[1] + tag[1])
         Delete();
-    } else {
+    } else if (e.deltaY == -100 || e.deltaX == -100){
         // マウスホイールを上にスクロールしたときの処理を記載
         $("tbody").append(tag[0] + time() + " " + mouse[5] + up_down[0] + tag[1])
         Delete();
     }
-});
+})
